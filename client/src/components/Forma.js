@@ -1,6 +1,9 @@
-import { observer } from 'mobx-react-lite';
 import React, { useState, useContext } from 'react';
+import { useLocation } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
+
 import {Form} from 'react-bootstrap'
+
 import { Context } from '..';
 import { createNote } from '../http/noteAPI';
 
@@ -8,6 +11,7 @@ const Forma = observer ( () => {
 
     const {user} = useContext(Context)
     const {note} = useContext(Context)
+    const {pathname} = useLocation()
 
     const [value, setValue] = useState('')
 
@@ -24,7 +28,8 @@ const Forma = observer ( () => {
             try {
                 const newNote = {
                     title: value,
-                    author: user.user.username
+                    author: user.user.username,
+                    type: pathname.slice(1)
                 }
                 createNote(newNote).then(res => {
                     note.addNote(res.data)

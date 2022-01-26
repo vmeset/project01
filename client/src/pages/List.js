@@ -1,21 +1,27 @@
-import { observer } from 'mobx-react-lite';
 import React, { useContext, useEffect } from 'react';
+import { useLocation } from 'react-router';
+import { observer } from 'mobx-react-lite';
+
 import { Container, ListGroup } from 'react-bootstrap';
+
 import { Context } from '..';
-import Note from '../components/Note';
 import { fetchNotes } from '../http/noteAPI';
 import Forma from '../components/Forma'
+import Note from '../components/Note';
 
 const List = observer ( () => {
 
     const {note} = useContext(Context)
     const {user} = useContext(Context)
+    const {pathname} = useLocation()
 
     useEffect(() => {
         fetchNotes(user.user.username, 1, 9).then(data => {
             note.setNotes(data)
         })
     }, [])
+
+    const filterNotes = note.notes.filter(note => note.type === pathname.slice(1))
 
     // useEffect(() => {
     //     fetchDevices(null, null, 1, 2).then(data => {
@@ -44,7 +50,7 @@ const List = observer ( () => {
         <Container>
             <Forma />
             <ListGroup>
-                {note.notes.map(note => <Note key={note._id} notka={note} />)}
+                {filterNotes.map(note => <Note key={note._id} notka={note} />)}
             </ListGroup>
         </Container>
     );
