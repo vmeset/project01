@@ -11,8 +11,8 @@ const Forma = observer ( () => {
 
     const [value, setValue] = useState('')
 
-    const click = () => {
-        // event.preventDefault()
+    const click = event => {
+        event.preventDefault()
 
         // useEffect(() => {
         //     fetchNotes(user.user.username, 1, 9).then(data => {

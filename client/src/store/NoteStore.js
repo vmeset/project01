@@ -24,4 +24,7 @@ export default class NoteStore {
     addNote(note) {
         this._notes.push(note)
     }
+    removeNote(id) {
+        this._notes = this._notes.filter(note => note._id !== id)
+    }
 }

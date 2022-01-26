@@ -44,7 +44,7 @@ const List = observer ( () => {
         <Container>
             <Forma />
             <ListGroup>
-                {note.notes.map(note => <Note key={note._id} note={note} />)}
+                {note.notes.map(note => <Note key={note._id} notka={note} />)}
             </ListGroup>
         </Container>
     );

@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import {useNavigate} from 'react-router-dom'
+import { Context } from '..';
 import { deleteNote } from '../http/noteAPI';
 import { NOTE_ROUTE } from '../utils/consts';
 
-const Note = ({note}) => {
+const Note = ({notka}) => {
 
     const navigate = useNavigate()
+    const {note} = useContext(Context)
 
     const onRemove = async () => {
-        await deleteNote(note._id)
+        await deleteNote(notka._id)
+        note.removeNote(notka._id)
     }
 
     const onComplete = async () => {
@@ -21,9 +24,9 @@ const Note = ({note}) => {
             style={{cursor: "pointer"}}
         >
             <Col md={8}
-                onClick={() => navigate(NOTE_ROUTE + '/' + note._id)}
+                onClick={() => navigate(NOTE_ROUTE + '/' + notka._id)}
             >
-                {note.title}
+                {notka.title}
             </Col>
             <Col md={2}>
                 04:20 05.01
@@ -33,7 +36,7 @@ const Note = ({note}) => {
             >
                 <Button
                     variant="outline-success"
-                    onClick={() => onComplete(note.id)}
+                    onClick={() => onComplete(notka._id)}
                 >
                     ✓
                 </Button>
