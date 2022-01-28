@@ -1,11 +1,12 @@
+import { observer } from 'mobx-react-lite';
 import React, { useContext } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import {useNavigate} from 'react-router-dom'
 import { Context } from '..';
-import { deleteNote } from '../http/noteAPI';
+import { deleteNote, updateNote } from '../http/noteAPI';
 import { NOTE_ROUTE } from '../utils/consts';
 
-const Note = ({notka}) => {
+const Note = observer( ({notka}) => {
 
     const navigate = useNavigate()
     const {note} = useContext(Context)
@@ -16,7 +17,8 @@ const Note = ({notka}) => {
     }
 
     const onComplete = async () => {
-        // await 
+        notka.isCompleted = !notka.isCompleted
+        await updateNote(notka)
     }
 
     return (
@@ -29,7 +31,7 @@ const Note = ({notka}) => {
                 {notka.title}
             </Col>
             <Col md={2}>
-                04:20 05.01
+                {notka.isCompleted ? 'YEZ' : 'NO'}
             </Col>
             <Col md={2}
                 className='spa'
@@ -49,6 +51,6 @@ const Note = ({notka}) => {
             </Col>
         </Row>
     );
-};
+});
 
 export default Note;

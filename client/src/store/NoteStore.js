@@ -27,4 +27,7 @@ export default class NoteStore {
     removeNote(id) {
         this._notes = this._notes.filter(note => note._id !== id)
     }
+    // toggleNote(id) {
+    //     this._notes = this.notes.map(note => note._id === id ? note.isCompleted = !note.isCompleted : note)
+    // }
 }

@@ -21,7 +21,21 @@ const List = observer ( () => {
         })
     }, [])
 
-    const filterNotes = note.notes.filter(note => note.type === pathname.slice(1))
+    let filterNotes = []
+
+    switch(pathname.slice(1)) {
+        case 'done':
+            filterNotes = note.notes.filter(note => note.isCompleted)
+            break;
+        case 'todo':
+            filterNotes = note.notes.filter(note => note.type === 'todo')
+            break;
+        case 'buy':
+            filterNotes = note.notes.filter(note => note.type === 'buy')
+            break;
+        default:
+            filterNotes = note.notes
+    }
 
     // useEffect(() => {
     //     fetchDevices(null, null, 1, 2).then(data => {

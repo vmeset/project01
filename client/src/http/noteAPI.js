@@ -18,6 +18,6 @@ export const deleteNote = async (id) => {
 }
 
 export const updateNote = async (note) => {
-    const response = await $authHost.put('api/note/update', note._id, note)
+    const response = await $authHost.put('api/note/update', note)
     return response.data
 }
