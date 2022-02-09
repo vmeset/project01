@@ -28,10 +28,10 @@ const List = observer ( () => {
             filterNotes = note.notes.filter(note => note.isCompleted)
             break;
         case 'todo':
-            filterNotes = note.notes.filter(note => note.type === 'todo')
+            filterNotes = note.notes.filter(note => note.type === 'todo' && note.isCompleted === false)
             break;
         case 'buy':
-            filterNotes = note.notes.filter(note => note.type === 'buy')
+            filterNotes = note.notes.filter(note => note.type === 'buy' && note.isCompleted === false)
             break;
         default:
             filterNotes = note.notes

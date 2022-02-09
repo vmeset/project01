@@ -2,8 +2,9 @@ import React, { useContext } from 'react';
 import { Container } from 'react-bootstrap';
 import { useLocation } from 'react-router';
 import { Context } from '..';
+import { observer } from 'mobx-react-lite';
 
-const NotePage = () => {
+const NotePage = observer ( () => {
     
     const {note} = useContext(Context)
     const location = useLocation()
@@ -17,6 +18,6 @@ const NotePage = () => {
             {actualNote.title}
         </Container>
     );
-};
+});
 
 export default NotePage;

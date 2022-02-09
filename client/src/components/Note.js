@@ -19,6 +19,8 @@ const Note = observer( ({notka}) => {
     const onComplete = async () => {
         notka.isCompleted = !notka.isCompleted
         await updateNote(notka)
+        // note.toggleNote(notka._id)
+        console.log(notka.isCompleted)
     }
 
     return (
@@ -31,7 +33,7 @@ const Note = observer( ({notka}) => {
                 {notka.title}
             </Col>
             <Col md={2}>
-                {notka.isCompleted ? 'YEZ' : 'NO'}
+                05.01.1986
             </Col>
             <Col md={2}
                 className='spa'
@@ -40,7 +42,7 @@ const Note = observer( ({notka}) => {
                     variant="outline-success"
                     onClick={() => onComplete(notka._id)}
                 >
-                    ✓
+                    {notka.isCompleted ? `↩` : '✓'}
                 </Button>
                 <Button
                     variant="outline-danger"
