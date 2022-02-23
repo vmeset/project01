@@ -1,13 +1,14 @@
 import React, { useContext } from 'react';
 import {Routes, Route, Navigate} from 'react-router-dom'
 import { Context } from '..';
-import Auth from '../pages/Auth';
 import { authRoutes, publicRoutes } from '../routes';
 import { LOGIN_ROUTE, MAIN_ROUTE } from '../utils/consts';
 
 const AppRouter = () => {
     const {user} = useContext(Context)
     const isAuth = user.isAuth
+
+    console.log(isAuth)
 
     return (
         <Routes>
@@ -17,10 +18,10 @@ const AppRouter = () => {
             {publicRoutes.map(({path, Component}) =>
                 <Route key={path} path={path} element={<Component/>} />
             )}
-            {<Route path="*" element={isAuth 
+            <Route path="*" element={isAuth 
                 ? <Navigate to={MAIN_ROUTE} /> 
-                : <Navigate to ={LOGIN_ROUTE} />}
-            />}
+                : <Navigate to={LOGIN_ROUTE} />}
+            />
         </Routes>
     );
 };

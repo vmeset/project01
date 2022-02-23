@@ -1,6 +1,7 @@
 import React, { createContext } from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import './index.css'
 import NoteStore from './store/NoteStore';
 import UserStore from './store/UserStore';
 

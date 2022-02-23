@@ -53,25 +53,25 @@ const Forma = observer ( () => {
     }
 
     return (
-        // <Form className="mt-2" onSubmit={click}>
-        //     <Form.Group 
-        //         className="mb-3" 
-        //         value={noteTitle} 
-        //         onChange={e => setNoteTitle(e.target.value)}
-        //     >
-        //         <Form.Control placeholder="Add new note" />
-        //     </Form.Group>
-        // </Form>
-        <form onSubmit={click}>
-            <div>
-                <input
-                    type="text"
-                    placeholder="Введите название заметки"
-                    value={value}
-                    onChange={e => setValue(e.target.value)}
-                />
-            </div>
-        </form>
+        <Form className="mt-2" onSubmit={click}>
+            <Form.Group 
+                className="mb-3" 
+                value={value} 
+                onChange={e => setValue(e.target.value)}
+            >
+                <Form.Control placeholder="Add new note" />
+            </Form.Group>
+        </Form>
+        // <form onSubmit={click}>
+        //     <div>
+        //         <input
+        //             type="text"
+        //             placeholder="Введите название заметки"
+        //             value={value}
+        //             onChange={e => setValue(e.target.value)}
+        //         />
+        //     </div>
+        // </form>
     );
 });
 

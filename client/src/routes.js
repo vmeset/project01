@@ -24,14 +24,14 @@ export const authRoutes = [
     {
         path: NOTE_ROUTE + '/:id',
         Component: NotePage
-    }
-]
-
-export const publicRoutes = [
+    },
     {
         path: MAIN_ROUTE,
         Component: List
     },
+]
+
+export const publicRoutes = [
     {
         path: LOGIN_ROUTE,
         Component: Auth

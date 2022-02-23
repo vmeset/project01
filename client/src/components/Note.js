@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React, { useContext } from 'react';
-import { Button, Col, Row } from 'react-bootstrap';
+import { Button, Col, ListGroup, Row } from 'react-bootstrap';
 import {useNavigate} from 'react-router-dom'
 import { Context } from '..';
 import { deleteNote, updateNote } from '../http/noteAPI';
@@ -24,34 +24,38 @@ const Note = observer( ({notka}) => {
     }
 
     return (
-        <Row 
+        <ListGroup.Item 
             style={{cursor: "pointer"}}
+            className="notka"
         >
-            <Col md={8}
-                onClick={() => navigate(NOTE_ROUTE + '/' + notka._id)}
-            >
-                {notka.title}
-            </Col>
-            <Col md={2}>
-                05.01.1986
-            </Col>
-            <Col md={2}
-                className='spa'
-            >
-                <Button
-                    variant="outline-success"
-                    onClick={() => onComplete(notka._id)}
+            <Row>
+                <Col md={8}
+                    onClick={() => navigate(NOTE_ROUTE + '/' + notka._id)}
                 >
-                    {notka.isCompleted ? `↩` : '✓'}
-                </Button>
-                <Button
-                    variant="outline-danger"
-                    onClick={onRemove}
+                    {notka.title}
+                </Col>
+                <Col md={2}>
+                    05.01.1986
+                </Col>
+                <Col md={2}
                 >
-                    &times;
-                </Button>
-            </Col>
-        </Row>
+                    <Button
+                        variant="outline-success"
+                        onClick={() => onComplete(notka._id)}
+                        className="ms-5"
+                    >
+                        {notka.isCompleted ? `↩` : '✓'}
+                    </Button>
+                    <Button
+                        variant="outline-danger"
+                        onClick={onRemove}
+                        className="ms-4"
+                    >
+                        &times;
+                    </Button>
+                </Col>
+            </Row>
+        </ListGroup.Item>
     );
 });
 

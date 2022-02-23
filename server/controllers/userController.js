@@ -6,17 +6,17 @@ const jwt = require('jsonwebtoken')
 const ApiError = require("../error/ApiError")
 
 const userModel = require('../models/userModel')
-const roleModel = require('../models/roleModel')
+// const roleModel = require('../models/roleModel')
 
 const {validationResult} = require('express-validator')
 
 const secret = process.env.SECRET_KEY
 
-const generateAccessToken = (id, username, roles) => {
+const generateAccessToken = (id, username, role) => {
     const payload = {
         id,
         username,
-        roles
+        role
     }
     return jwt.sign(payload, secret, {expiresIn: "24h"})
 }
@@ -34,8 +34,8 @@ class UserController {
                 return next(ApiError.badRequest('Пользователь с таким именем уже существует'))
             }
             const hashPassword = bcrypt.hashSync(password, 5)
-            const userRole = await roleModel.findOne({value: "USER"})
-            const newUser = new userModel({username, password: hashPassword, roles: [userRole.value]})
+            // const userRole = await roleModel.findOne({value: "USER"})
+            const newUser = new userModel({username, password: hashPassword, role})
             await newUser.save()
             return res.json(`Пользователь ${username} успешно зареган`)
         } catch (e) {
@@ -54,7 +54,7 @@ class UserController {
             if (!validPassword) {
                 return next(ApiError.badRequest('неверный пароль'))
             }
-            const token = generateAccessToken(user._id, user.username, user.roles)
+            const token = generateAccessToken(user._id, user.username, user.role)
             return res.json({token})
         } catch (e) {
             next(ApiError.badRequest(e))
@@ -62,8 +62,12 @@ class UserController {
     }
 
     async check(req, res, next) {
-        const token = generateAccessToken(req.user._id, req.user.username, req.user.roles)
-        return res.json({token})
+        try {
+            const token = generateAccessToken(req.user._id, req.user.username, req.user.role)
+            return res.json({token})
+        } catch(e) {
+            next(ApiError.forbidden(e))
+        }
     }
 
     async delete(req, res, next) {

@@ -18,7 +18,6 @@ const Auth = observer( () => {
     const isLogin = location.pathname === LOGIN_ROUTE
 
     const {user} = useContext(Context)
-    
 
     const click = async () => {
         try {
