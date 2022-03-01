@@ -7,6 +7,7 @@ export default class NoteStore {
             {id: 2, cat: 'buy'}
         ]
         this._notes = []
+        this._title = ""
         makeAutoObservable(this)
     }
     setTypes(types) {
@@ -14,6 +15,12 @@ export default class NoteStore {
     }
     setNotes(notes) {
         this._notes = notes
+    }
+    setTitle(title) {
+        this._title = title
+    }
+    get title() {
+        return this._title
     }
     get types() {
         return this._types

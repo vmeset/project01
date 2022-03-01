@@ -3,24 +3,24 @@ import React, { useContext } from 'react';
 import { Button, Col, ListGroup, Row } from 'react-bootstrap';
 import {useNavigate} from 'react-router-dom'
 import { Context } from '..';
-import { deleteNote, updateNote } from '../http/noteAPI';
+import { updateNote } from '../http/noteAPI';
 import { NOTE_ROUTE } from '../utils/consts';
 
 const Note = observer( ({notka}) => {
 
     const navigate = useNavigate()
     const {note} = useContext(Context)
+    const {alert} = useContext(Context)
 
-    const onRemove = async () => {
-        await deleteNote(notka._id)
-        note.removeNote(notka._id)
+    const showModal = () => {
+        alert.setModalVisible(true)
+        alert.setModalNoteId(notka._id)
     }
 
     const onComplete = async () => {
         notka.isCompleted = !notka.isCompleted
         await updateNote(notka)
         // note.toggleNote(notka._id)
-        console.log(notka.isCompleted)
     }
 
     return (
@@ -48,7 +48,7 @@ const Note = observer( ({notka}) => {
                     </Button>
                     <Button
                         variant="outline-danger"
-                        onClick={onRemove}
+                        onClick={showModal}
                         className="ms-4"
                     >
                         &times;

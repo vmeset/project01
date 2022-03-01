@@ -8,8 +8,6 @@ const AppRouter = () => {
     const {user} = useContext(Context)
     const isAuth = user.isAuth
 
-    console.log(isAuth)
-
     return (
         <Routes>
             {isAuth && authRoutes.map(({path, Component}) =>

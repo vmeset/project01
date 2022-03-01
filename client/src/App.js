@@ -2,10 +2,12 @@ import React, { useContext, useEffect, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import AppRouter from "./components/AppRouter";
 import NavBar from "./components/NavBar";
+import AlertBlock from "./components/Alert";
 import {observer} from "mobx-react-lite"
 import { Context } from ".";
 import { check } from "./http/userAPI";
 import { Spinner } from "react-bootstrap";
+import ModalBlock from "./components/ModalBlock";
 
 const App = observer( () => {
 
@@ -28,6 +30,8 @@ const App = observer( () => {
   return (
     <BrowserRouter>
       <NavBar />
+      <AlertBlock />
+      <ModalBlock />
       <AppRouter />
     </BrowserRouter>
   );

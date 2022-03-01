@@ -1,77 +1,58 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
-
-import {Form} from 'react-bootstrap'
+import {Form, Button} from 'react-bootstrap'
 
 import { Context } from '..';
 import { createNote } from '../http/noteAPI';
 
 const Forma = observer ( () => {
 
-    const {user} = useContext(Context)
-    const {note} = useContext(Context)
     const {pathname} = useLocation()
 
-    const [value, setValue] = useState('')
+    const {user} = useContext(Context)
+    const {note} = useContext(Context)
+    const {alert} = useContext(Context)
 
     const click = event => {
         event.preventDefault()
 
-        // useEffect(() => {
-        //     fetchNotes(user.user.username, 1, 9).then(data => {
-        //         note.setNotes(data)
-        //     })
-        // }, [])
-
-        if (value.trim()) {
+        if (note.title.trim()) {
             try {
                 const newNote = {
-                    title: value,
+                    title: note.title,
                     author: user.user.username,
                     type: pathname.slice(1)
                 }
                 createNote(newNote).then(res => {
                     note.addNote(res.data)
+                }).then(() => {
+                    alert.showAlert("Заметка успешно создана", "success")
                 })
-                setValue('')
-            } catch (e) {
-                alert(e.message)
+            } catch(e) {
+                alert.showAlert(e.message, "danger")
             }
-            // const newNote = {
-            //     title: noteTitle,
-            //     author: user.user.username
-            // }
-            // const response = createNote(newNote)
-            // note.addNote(response)
-            
-            // console.log(response)
+            note.setTitle("")
         } else {
-            alert('Введите название заметки')
+            alert.showAlert('Введите название заметки', "warning")
         }
-        // setValue('')
     }
 
     return (
-        <Form className="mt-2" onSubmit={click}>
-            <Form.Group 
-                className="mb-3" 
-                value={value} 
-                onChange={e => setValue(e.target.value)}
-            >
-                <Form.Control placeholder="Add new note" />
-            </Form.Group>
-        </Form>
-        // <form onSubmit={click}>
-        //     <div>
-        //         <input
-        //             type="text"
-        //             placeholder="Введите название заметки"
-        //             value={value}
-        //             onChange={e => setValue(e.target.value)}
-        //         />
-        //     </div>
-        // </form>
+        <>
+            <Form className="mt-2" onSubmit={click}>
+                <Form.Group 
+                    className="mb-3" 
+                    value={note.title} 
+                    onChange={e => note.setTitle(e.target.value)}
+                >
+                    <Form.Control placeholder="Add new note" />
+                </Form.Group>
+                <Button onClick={() => console.log(note.title)}>
+                    XX
+                </Button>
+            </Form>
+        </>
     );
 });
 
