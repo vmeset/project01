@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
-import {Form, Button} from 'react-bootstrap'
+import {Form} from 'react-bootstrap'
 
 import { Context } from '..';
 import { createNote } from '../http/noteAPI';
@@ -40,18 +40,18 @@ const Forma = observer ( () => {
 
     return (
         <>
-            <Form className="mt-2" onSubmit={click}>
-                <Form.Group 
-                    className="mb-3" 
-                    value={note.title} 
-                    onChange={e => note.setTitle(e.target.value)}
-                >
-                    <Form.Control placeholder="Add new note" />
-                </Form.Group>
-                <Button onClick={() => console.log(pathname)}>
-                    XX
-                </Button>
-            </Form>
+            {pathname === "/done" 
+                ? <></> 
+                : <Form className="mt-2" onSubmit={click}>
+                    <Form.Group 
+                        className="mb-3" 
+                        value={note.title} 
+                        onChange={e => note.setTitle(e.target.value)}
+                    >
+                        <Form.Control placeholder="Add new note" />
+                    </Form.Group>
+                </Form>
+            }
         </>
     );
 });

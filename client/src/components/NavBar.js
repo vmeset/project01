@@ -21,7 +21,7 @@ const NavBar = observer ( () => {
         //         </Nav>
         //     </Container>
         // </Navbar>
-        <Navbar bg="dark" variant="dark">
+        <Navbar bg="dark" variant="dark" className='mb-2'>
             <Container>
                 <NavLink 
                     style={{color: 'white'}}
@@ -43,7 +43,7 @@ const NavBar = observer ( () => {
                     localstorage
                 </Button>
                 {user.isAuth ?
-                    <Nav className="ml-auto">
+                    <Nav>
                         <Button variant={'outline-light'}
                             onClick={() => navigate(TO_DO_ROUTE)}
                         >
@@ -65,7 +65,7 @@ const NavBar = observer ( () => {
                 }
                 
                 {user.isAuth ?
-                    <Nav className="ml-auto">
+                    <Nav>
                         {
                             user.user.role === "ADMIN" ? 
                             <Button variant={'outline-light'}
@@ -85,7 +85,6 @@ const NavBar = observer ( () => {
                                 user.setIsAuth(false)
                                 navigate(LOGIN_ROUTE)
                                 localStorage.removeItem('token')
-                                console.log(localStorage)
                             }}
                         >
                             Выйти

@@ -22,16 +22,24 @@ const List = observer ( () => {
     }, [])
 
     let filterNotes = []
+    let listTitle = "Список задач"
 
     switch(pathname.slice(1)) {
         case 'done':
             filterNotes = note.notes.filter(note => note.isCompleted)
+            listTitle = "Выполненные задачи"
             break;
         case 'todo':
             filterNotes = note.notes.filter(note => note.type === 'todo' && note.isCompleted === false)
+            listTitle = "Поставленные задачи"
+            break;
+        case '':
+            filterNotes = note.notes.filter(note => note.type === 'todo' && note.isCompleted === false)
+            listTitle = "Поставленные задачи"
             break;
         case 'buy':
             filterNotes = note.notes.filter(note => note.type === 'buy' && note.isCompleted === false)
+            listTitle = "Покупки"
             break;
         default:
             filterNotes = note.notes
@@ -62,6 +70,9 @@ const List = observer ( () => {
 
     return (
         <Container>
+            <h4>
+                {listTitle}
+            </h4>
             <Forma />
             <ListGroup>
                 {filterNotes.map(note => <Note key={note._id} notka={note} />)}

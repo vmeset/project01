@@ -9,7 +9,6 @@ import { NOTE_ROUTE } from '../utils/consts';
 const Note = observer( ({notka}) => {
 
     const navigate = useNavigate()
-    const {note} = useContext(Context)
     const {alert} = useContext(Context)
 
     const showModal = () => {
@@ -20,7 +19,6 @@ const Note = observer( ({notka}) => {
     const onComplete = async () => {
         notka.isCompleted = !notka.isCompleted
         await updateNote(notka)
-        // note.toggleNote(notka._id)
     }
 
     return (
