@@ -22,7 +22,7 @@ const Forma = observer ( () => {
                 const newNote = {
                     title: note.title,
                     author: user.user.username,
-                    type: pathname.slice(1)
+                    type: pathname.slice(1) === "" ? "todo" : pathname.slice(1)
                 }
                 createNote(newNote).then(res => {
                     note.addNote(res.data)
@@ -48,7 +48,7 @@ const Forma = observer ( () => {
                 >
                     <Form.Control placeholder="Add new note" />
                 </Form.Group>
-                <Button onClick={() => console.log(note.title)}>
+                <Button onClick={() => console.log(pathname)}>
                     XX
                 </Button>
             </Form>
