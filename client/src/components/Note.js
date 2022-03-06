@@ -32,7 +32,6 @@ const Note = observer( ({notka}) => {
     return (
         <ListGroup.Item 
             style={{cursor: "pointer"}}
-            className="notka"
         >
             <Row>
                 <Col md={8}

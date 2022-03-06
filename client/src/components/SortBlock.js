@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React, {useState, useEffect} from 'react';
-import { Button, ListGroup } from 'react-bootstrap';
+import { Button, ListGroup, Form, Row, Col } from 'react-bootstrap';
 import _ from 'lodash';
 
 import Note from '../components/Note';
@@ -26,26 +26,34 @@ const SortBlock = observer( ({notes}) => {
 
     return (
         <ListGroup>
-            <div className='mb-3'>
-                <Button variant={'outline-dark'}
+            <Row className="justify-content-md-start mb-3">
+                <Col xs lg="4">
+                    Сортировка
+                    <Button variant={'outline-dark'}
+                        className='ms-2'
                         onClick={() => {
                             onSort("title")
                         }}
-                >
-                    сортировка по имени
-                </Button>
-                <Button variant={'outline-dark'}
+                    >
+                        по имени
+                    </Button>
+                    <Button variant={'outline-dark'}
+                        className='ms-2'
                         onClick={() => {
                             onSort("date")
                         }}
-                >
-                    сортировка по дате
-                </Button>
-                <input type="text" placeholder={"найди нужную заметку"}         
-                       onChange={(e) => (setSearchVal(e.target.value))}/>
-            </div>
-            {usNotes.filter((val) => {
-                if (searchVal == "") {
+                    >
+                        по дате
+                    </Button>
+                </Col>
+                <Col md="8">
+                    <Form.Control placeholder="поиск"
+                        onChange={(e) => (setSearchVal(e.target.value))} 
+                    />
+                </Col>
+            </Row>
+            {usNotes.filter(val => {
+                if (searchVal === "") {
                     return val
                 } else if (val.title.toLowerCase().includes(searchVal.toLowerCase())) {
                     return val

@@ -11,19 +11,15 @@ const NavBar = observer ( () => {
     const navigate = useNavigate()
 
     return (
-        // <Navbar bg="dark" variant="dark">
-        //     <Container>
-        //         <Navbar.Brand href="#home">Navbar</Navbar.Brand>
-        //         <Nav className="me-auto">
-        //             <Nav.Link href="#home">Home</Nav.Link>
-        //             <Nav.Link href="#features">Features</Nav.Link>
-        //             <Nav.Link href="#pricing">Pricing</Nav.Link>
-        //         </Nav>
-        //     </Container>
-        // </Navbar>
         <Navbar bg="dark" variant="dark" className='mb-2'>
             <Container>
-                <NavLink 
+                <Navbar.Brand>
+                    {user.isAuth ? 
+                        <span>{user.user.username}</span>
+                        : 'MyNotes'
+                    }
+                </Navbar.Brand>
+                {/* <NavLink 
                     style={{color: 'white'}}
                     to={MAIN_ROUTE}
                 >
@@ -31,8 +27,8 @@ const NavBar = observer ( () => {
                         <span>{user.user.username}</span>
                         : 'MyNotes'
                     }
-                </NavLink>
-                <Button variant={'outline-light'}
+                </NavLink> */}
+                {/* <Button variant={'outline-light'}
                     onClick={() => console.log(user.isAuth)}
                 >
                     auth
@@ -41,10 +37,13 @@ const NavBar = observer ( () => {
                     onClick={() => console.log(localStorage)}
                 >
                     localstorage
-                </Button>
+                </Button> */}
                 {user.isAuth ?
-                    <Nav>
-                        <Button variant={'outline-light'}
+                    <Nav className="me-auto">
+                        <Nav.Link onClick={() => navigate(TO_DO_ROUTE)}>toDo</Nav.Link>
+                        <Nav.Link onClick={() => navigate(TO_BUY_ROUTE)}>toBuy</Nav.Link>
+                        <Nav.Link onClick={() => navigate(DONE_ROUTE)}>done</Nav.Link>
+                        {/* <Button variant={'outline-light'}
                             onClick={() => navigate(TO_DO_ROUTE)}
                         >
                             toDo
@@ -59,7 +58,7 @@ const NavBar = observer ( () => {
                             onClick={() => navigate(DONE_ROUTE)}
                         >
                             done
-                        </Button>
+                        </Button> */}
                     </Nav>
                     : <Nav></Nav>
                 }
@@ -68,18 +67,32 @@ const NavBar = observer ( () => {
                     <Nav>
                         {
                             user.user.role === "ADMIN" ? 
-                            <Button variant={'outline-light'}
+                            <Nav.Link onClick={() => {
+                                    navigate(ADMIN_ROUTE)
+                                }}
                             >
-                                <NavLink 
-                                    to={ADMIN_ROUTE}
-                                    style={{color: 'white'}}
-                                >
-                                    Админка
-                                </NavLink>
-                            </Button>
+                                Админка
+                            </Nav.Link>
+                            // <Button variant={'outline-light'}
+                            // >
+                            //     <NavLink 
+                            //         to={ADMIN_ROUTE}
+                            //         style={{color: 'white'}}
+                            //     >
+                            //         Админка
+                            //     </NavLink>
+                            // </Button>
                             : <Nav></Nav>
                         }
-                        <Button variant={'outline-light'}
+                        <Nav.Link onClick={() => {
+                                    user.setIsAuth(false)
+                                    navigate(LOGIN_ROUTE)
+                                    localStorage.removeItem('token')
+                                }}
+                        >
+                            Выйти
+                        </Nav.Link>
+                        {/* <Button variant={'outline-light'}
                             className='ms-2'
                             onClick={() => {
                                 user.setIsAuth(false)
@@ -88,17 +101,17 @@ const NavBar = observer ( () => {
                             }}
                         >
                             Выйти
-                        </Button>
+                        </Button> */}
                     </Nav>
                     :
                     <Nav>
-                        <Button variant={'outline-light'}
+                        {/* <Button variant={'outline-light'}
                             onClick={() => {
                                 navigate(LOGIN_ROUTE)
                             }}
                         >
                             Войти
-                        </Button>
+                        </Button> */}
                     </Nav>
                 }
 
