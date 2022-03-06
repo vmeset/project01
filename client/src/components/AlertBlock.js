@@ -8,9 +8,9 @@ const AlertBlock = observer ( () => {
 
     const {alert} = useContext(Context)
 
-    if (alert.visible) {
+    if (alert.alertVisible) {
         return (
-          <Alert variant={alert.type || "warning"} onClose={() => alert.setVisible(false)} dismissible>
+          <Alert variant={alert.type || "warning"} onClose={() => alert.hideAlert(false)} dismissible>
             <Alert.Heading>{alert.text}</Alert.Heading>
           </Alert>
         );

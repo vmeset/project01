@@ -2,12 +2,12 @@ import React, { useContext, useEffect } from 'react';
 import { useLocation } from 'react-router';
 import { observer } from 'mobx-react-lite';
 
-import { Container, ListGroup } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 
 import { Context } from '..';
 import { fetchNotes } from '../http/noteAPI';
 import Forma from '../components/Forma'
-import Note from '../components/Note';
+import SortBlock from '../components/SortBlock';
 
 const List = observer ( () => {
 
@@ -74,9 +74,13 @@ const List = observer ( () => {
                 {listTitle}
             </h4>
             <Forma />
-            <ListGroup>
+            {/* <Button onClick={onSort}>
+                butt
+            </Button> */}
+            <SortBlock notes={filterNotes} />
+            {/* <ListGroup>
                 {filterNotes.map(note => <Note key={note._id} notka={note} />)}
-            </ListGroup>
+            </ListGroup> */}
         </Container>
     );
 });
