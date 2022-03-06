@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React, {useState, useEffect} from 'react';
-import { ListGroup } from 'react-bootstrap';
+import { Button, ListGroup } from 'react-bootstrap';
 import _ from 'lodash';
 
 import Note from '../components/Note';
@@ -26,24 +26,23 @@ const SortBlock = observer( ({notes}) => {
 
     return (
         <ListGroup>
-            <div>
-                <button className="btn btn-light btn-sm"
+            <div className='mb-3'>
+                <Button variant={'outline-dark'}
                         onClick={() => {
                             onSort("title")
                         }}
                 >
                     сортировка по имени
-                </button>
-                <input type="text" placeholder={"найди нужную заметку"} className="form-control-sm border light col-sm-8"
-                       onChange={(e) => (setSearchVal(e.target.value))}/>
-                <button className="btn btn-light btn-sm"
+                </Button>
+                <Button variant={'outline-dark'}
                         onClick={() => {
                             onSort("date")
                         }}
                 >
                     сортировка по дате
-                </button>
-
+                </Button>
+                <input type="text" placeholder={"найди нужную заметку"}         
+                       onChange={(e) => (setSearchVal(e.target.value))}/>
             </div>
             {usNotes.filter((val) => {
                 if (searchVal == "") {
