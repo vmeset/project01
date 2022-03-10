@@ -33,28 +33,27 @@ const Note = observer( ({notka}) => {
         <ListGroup.Item 
             style={{cursor: "pointer"}}
         >
-            <Row>
-                <Col md={8}
+            <Row className='justify-content-between'>
+                <Col sm={8} md={4} lg={6}
                     onClick={() => navigate(NOTE_ROUTE + '/' + notka._id)}
+                    className='align-bottom'
                 >
                     {notka.title}
                 </Col>
-                <Col md={2}>
-                    <small>{formatDate(notka.date)}</small>
-                </Col>
-                <Col md={2}
+                <Col md="auto" lg="auto"
                 >
+                    <small style={{fontSize: '12px'}}>{formatDate(notka.date)}</small>
                     <Button
                         variant="outline-success"
                         onClick={() => onComplete(notka._id)}
-                        className="ms-5"
+                        className='ms-3 d-none d-md-inline'
                     >
                         {notka.isCompleted ? `↩` : '✓'}
                     </Button>
                     <Button
                         variant="outline-danger"
                         onClick={showModal}
-                        className="ms-4"
+                        className='ms-3 d-none d-md-inline'
                     >
                         &times;
                     </Button>

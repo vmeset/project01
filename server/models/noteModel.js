@@ -5,6 +5,7 @@ const Note = new mongoose.Schema({
     title: {type: String, required: true},
     type: {type: String, required: true},
     isCompleted: {type: Boolean, default: false},
+    date: {type: Date, default: Date.now},
     description: {type: Array},
 })
 
