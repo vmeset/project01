@@ -27,48 +27,48 @@ const SortBlock = observer( ({notes}) => {
 
     return (
         <ListGroup>
+            <Row className="justify-content-between">
+                <Col xs lg={4} className='mb-3 pt-1'>
+                    Сортировка
+                    <Button variant={'outline-dark'}
+                        className='ms-2 btn-sm'
+                        onClick={() => {
+                            onSort("title")
+                        }}
+                    >
+                        по имени
+                    </Button>
+                    <Button variant={'outline-dark'}
+                        className='ms-2 btn-sm'
+                        onClick={() => {
+                            onSort("date")
+                        }}
+                    >
+                        по дате
+                    </Button>
+                </Col>
+                <Col sm="auto"  className='mb-3'>
+                    <Form.Control placeholder="поиск"
+                        onChange={(e) => (setSearchVal(e.target.value))} 
+                    />
+                </Col>
+            </Row>
             <TransitionGroup className='note-list'>
-                <Row className="justify-content-between">
-                    <Col xs lg={4} className='mb-3 pt-1'>
-                        Сортировка
-                        <Button variant={'outline-dark'}
-                            className='ms-2 btn-sm'
-                            onClick={() => {
-                                onSort("title")
-                            }}
-                        >
-                            по имени
-                        </Button>
-                        <Button variant={'outline-dark'}
-                            className='ms-2 btn-sm'
-                            onClick={() => {
-                                onSort("date")
-                            }}
-                        >
-                            по дате
-                        </Button>
-                    </Col>
-                    <Col sm="auto"  className='mb-3'>
-                        <Form.Control placeholder="поиск"
-                            onChange={(e) => (setSearchVal(e.target.value))} 
-                        />
-                    </Col>
-                </Row>
-                    {usNotes.filter(val => {
-                        if (searchVal === "") {
-                            return val
-                        } else if (val.title.toLowerCase().includes(searchVal.toLowerCase())) {
-                            return val
-                        }
-                    }).map(note => (
-                        <CSSTransition 
-                            classNames={'note'} 
-                            key={note._id}
-                            timeout={1000}
-                        >  
-                            <Note notka={note} />
-                        </CSSTransition>)
-                    )}
+                {usNotes.filter(val => {
+                    if (searchVal === "") {
+                        return val
+                    } else if (val.title.toLowerCase().includes(searchVal.toLowerCase())) {
+                        return val
+                    }
+                }).map(note => (
+                    <CSSTransition 
+                        classNames={'note'} 
+                        key={note._id}
+                        timeout={1000}
+                    >  
+                        <Note notka={note} />
+                    </CSSTransition>)
+                )}
             </TransitionGroup>
         </ListGroup>
     );

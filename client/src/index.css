@@ -19,12 +19,15 @@
 
 @keyframes note {
     0% {
+        opacity: 1;
         transform: translateX(0);
     }
     30% {
+        opacity: .7;
         transform: translateX(30px);
     }
     100% {
+        opacity: 0;
         transform: translateX(-1200px);
     }
 }

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import {Form} from 'react-bootstrap'
@@ -9,6 +9,7 @@ import { createNote } from '../http/noteAPI';
 const Forma = observer ( () => {
 
     const {pathname} = useLocation()
+    const [title, setTitle] = useState('')
 
     const {user} = useContext(Context)
     const {note} = useContext(Context)
@@ -16,11 +17,10 @@ const Forma = observer ( () => {
 
     const click = event => {
         event.preventDefault()
-
-        if (note.title.trim()) {
+        if (title.trim()) {
             try {
                 const newNote = {
-                    title: note.title,
+                    title,
                     author: user.user.username,
                     type: pathname.slice(1) === "" ? "todo" : pathname.slice(1)
                 }
@@ -28,11 +28,12 @@ const Forma = observer ( () => {
                     note.addNote(res.data)
                 }).then(() => {
                     alert.showAlert("Заметка успешно создана", "success")
+                    setTimeout(() => alert.hideAlert(), 2000);
                 })
             } catch(e) {
                 alert.showAlert(e.message, "danger")
             }
-            note.setTitle("")
+            setTitle('')
         } else {
             alert.showAlert('Введите название заметки', "warning")
         }
@@ -45,10 +46,11 @@ const Forma = observer ( () => {
                 : <Form className="mt-2" onSubmit={click}>
                     <Form.Group 
                         className="mb-3" 
-                        value={note.title} 
-                        onChange={e => note.setTitle(e.target.value)}
                     >
-                        <Form.Control placeholder="Add new note" />
+                        <Form.Control placeholder="Добавь новую заметку"
+                            value={title} 
+                            onChange={e => setTitle(e.target.value)}
+                        />
                     </Form.Group>
                 </Form>
             }

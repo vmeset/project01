@@ -5,8 +5,10 @@ export default class AlertStore {
         this._alertVisible = false
         this._type = ""
         this._text = ""
+        this._modalType = ""
+        this._modalText = ""
+        this._modalId = ""
         this._modalVisible = false
-        this._modalNoteId = ""
         makeAutoObservable(this)
     }
     // setType(type) {
@@ -21,19 +23,31 @@ export default class AlertStore {
     setModalVisible(value) {
         this._modalVisible = value
     }
-    setModalNoteId(id) {
-        this._modalNoteId = id
-    }
     showAlert(text, type) {
         this._type = type
         this._text = text
         this._alertVisible = true
     }
+    showModal(type, text, id) {
+        this._modalType = type
+        this._modalText = text
+        this._modalId = id
+        this._modalVisible = true
+    }
     hideAlert() {
         this._alertVisible = false
     }
-    get modalNoteId () {
-        return this._modalNoteId
+    hideModal() {
+        this._modalVisible = false
+    }
+    get modalId () {
+        return this._modalId
+    }
+    get modalType () {
+        return this._modalType
+    }
+    get modalText() {
+        return this._modalText
     }
     get modalVisible () {
         return this._modalVisible

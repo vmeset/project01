@@ -11,6 +11,9 @@ router.post('/registration', [
     check('password', 'не меньше четырех символов').isLength({min: 4})
 ], userController.registration)
 router.get('/check', authMiddleware, userController.check)
-// router.delete('/delete', roleMiddleware(['ADMIN']), userController.delete)
+router.get('/fetch', userController.getAll)
+router.put('/update', userController.updateRole)
+router.delete('/:id', userController.delete)
+// roleMiddleware(['ADMIN'])
 
 module.exports = router

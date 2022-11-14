@@ -21,7 +21,7 @@ const App = observer( () => {
         user.setUser(data)
       }
     }).finally(() => setIsLoading(false))
-  }, [])
+  })
 
   if(isLoading) {
     return <Spinner animation={"grow"} />

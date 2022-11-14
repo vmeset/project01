@@ -16,7 +16,7 @@ const List = observer ( () => {
     const {pathname} = useLocation()
 
     useEffect(() => {
-        fetchNotes(user.user.username, 1, 9).then(data => {
+        fetchNotes(user.user.username).then(data => {
             note.setNotes(data)
         })
     }, [])

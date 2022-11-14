@@ -53,8 +53,8 @@ class noteController {
 
         try {
             let {author, limit, page} = req.query
+            limit = limit || 20
             page = page || 1
-            limit = limit || 9
             let offset = page * limit - limit
 
             let filteredNotes = await noteModel.find({author}).skip(parseInt(offset)).limit(parseInt(limit))

@@ -6,7 +6,6 @@ const jwt = require('jsonwebtoken')
 const ApiError = require("../error/ApiError")
 
 const userModel = require('../models/userModel')
-// const roleModel = require('../models/roleModel')
 
 const {validationResult} = require('express-validator')
 
@@ -39,7 +38,7 @@ class UserController {
             await newUser.save()
             return res.json(`Пользователь ${username} успешно зареган`)
         } catch (e) {
-            next(ApiError.badRequest(e))
+            next(ApiError.badRequest(e.message))
         }
     }
 
@@ -57,7 +56,7 @@ class UserController {
             const token = generateAccessToken(user._id, user.username, user.role)
             return res.json({token})
         } catch (e) {
-            next(ApiError.badRequest(e))
+            next(ApiError.badRequest(e.message))
         }
     }
 
@@ -66,17 +65,35 @@ class UserController {
             const token = generateAccessToken(req.user._id, req.user.username, req.user.role)
             return res.json({token})
         } catch(e) {
-            next(ApiError.forbidden(e))
+            next(ApiError.forbidden(e.message))
         }
     }
 
     async delete(req, res, next) {
         try {
-            const username = req.body
-            const candidate = await userModel.findByIdAndDelete(username)
-            return res.json({candidate})
+            const deletedUser = await userModel.findByIdAndDelete(req.params.id)
+            return res.json(deletedUser)
+        } catch (e) {
+            next(ApiError.badRequest(e.message))
+        }
+    }
+
+    async getAll(req, res, next) {
+        try {
+            const users = await userModel.find()
+            return res.json(users)
         } catch(e) {
-            next(ApiError.badRequest(e))
+            next(ApiError.badRequest(e.message))
+        }
+    }
+
+    async updateRole(req, res, next) {
+        try {
+            const user = req.body
+            const updatedUser = await userModel.findByIdAndUpdate(user._id, user, {new: true})
+            return res.json(updatedUser)
+        } catch {
+            next(ApiError.badRequest(e.message))
         }
     }
 }

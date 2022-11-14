@@ -14,8 +14,7 @@ const Note = observer( ({notka}) => {
     const {alert} = useContext(Context)
 
     const showModal = () => {
-        alert.setModalVisible(true)
-        alert.setModalNoteId(notka._id)
+        alert.showModal('note', `Удалить заметку '${notka.title}'`, notka._id)
     }
 
     const onComplete = async () => {
@@ -34,26 +33,28 @@ const Note = observer( ({notka}) => {
             style={{cursor: "pointer"}}
         >
             <Row className='justify-content-between'>
-                <Col sm={8} md={4} lg={6}
+                <Col xs={4}
                     onClick={() => navigate(NOTE_ROUTE + '/' + notka._id)}
                     className='align-bottom'
                 >
                     {notka.title}
                 </Col>
-                <Col md="auto" lg="auto"
+                <Col xs="auto"
                 >
-                    <small style={{fontSize: '12px'}}>{formatDate(notka.date)}</small>
+                    <small style={{fontSize: '12px'}} className='d-none d-sm-inline'>
+                        {formatDate(notka.date)}
+                    </small>
                     <Button
                         variant="outline-success"
                         onClick={() => onComplete(notka._id)}
-                        className='ms-3 d-none d-md-inline'
+                        className='ms-3 d-md-inline'
                     >
                         {notka.isCompleted ? `↩` : '✓'}
                     </Button>
                     <Button
                         variant="outline-danger"
                         onClick={showModal}
-                        className='ms-3 d-none d-md-inline'
+                        className='ms-3 d-md-inline'
                     >
                         &times;
                     </Button>

@@ -9,26 +9,29 @@ const AlertBlock = observer ( () => {
 
     const {alert} = useContext(Context)
 
-    // if (alert.alertVisible) {
-        return (
-          <CSSTransition
-            in={alert.alertVisible}
-            timeout={{
-              enter: 750,
-              exit: 500
-            }}
-            classNames={'alert'}
-            mountOnEnter
-            unmountOnExit
-          >
-            <Container>
-              <Alert variant={alert.type || "warning"} onClose={() => alert.hideAlert(false)} dismissible>
-                <Alert.Heading>{alert.text}</Alert.Heading>
-              </Alert>
-            </Container>
-          </CSSTransition>
-        );
-      // return <></>
+      return (
+        <CSSTransition
+          in={alert.alertVisible}
+          timeout={{
+            enter: 750,
+            exit: 500
+          }}
+          classNames={'alert'}
+          mountOnEnter
+          unmountOnExit
+        >
+          <Container>
+            <Alert 
+              variant={alert.type || "warning"} 
+              onClose={() => alert.hideAlert(false)} 
+              dismissible
+              className='pb-0'
+            >
+              <p>{alert.text}</p>
+            </Alert>
+          </Container>
+        </CSSTransition>
+      );
 });
 
 export default AlertBlock;

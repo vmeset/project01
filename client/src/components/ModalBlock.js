@@ -4,25 +4,38 @@ import { Modal, Button } from 'react-bootstrap';
 
 import { Context } from '..';
 import { deleteNote } from '../http/noteAPI';
+import { deleteAccount } from '../http/userAPI';
 
 const ModalBlock = observer ( () => {
 
     const {alert} = useContext(Context)
     const {note} = useContext(Context)
+    const {user} = useContext(Context)
   
     const handleClose = () => alert.setModalVisible(false);
 
     const onRemove = async () => {
-        await deleteNote(alert.modalNoteId)
-        note.removeNote(alert.modalNoteId)
-        alert.setModalVisible(false)
+        switch (alert.modalType) {
+            case 'note':
+                await deleteNote(alert.modalId)
+                note.removeNote(alert.modalId)
+                alert.setModalVisible(false)
+                break;
+            case 'user':
+                await deleteAccount(alert.modalId)
+                user.deleteAccount(alert.modalId)
+                alert.setModalVisible(false)
+                break;
+            default:
+                break;
+        }
     }
 
     return (
         <>
             <Modal show={alert.modalVisible} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Удаляем, да?</Modal.Title>
+                    <Modal.Title>{alert.modalText || "Удаляем, да?"}</Modal.Title>
                 </Modal.Header>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>

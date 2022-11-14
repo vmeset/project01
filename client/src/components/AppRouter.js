@@ -1,10 +1,11 @@
+import { observer } from 'mobx-react-lite';
 import React, { useContext } from 'react';
 import {Routes, Route, Navigate} from 'react-router-dom'
 import { Context } from '..';
 import { authRoutes, publicRoutes } from '../routes';
 import { LOGIN_ROUTE, MAIN_ROUTE } from '../utils/consts';
 
-const AppRouter = () => {
+const AppRouter = observer ( () => {
     const {user} = useContext(Context)
     const isAuth = user.isAuth
 
@@ -22,6 +23,6 @@ const AppRouter = () => {
             />
         </Routes>
     );
-};
+});
 
 export default AppRouter;

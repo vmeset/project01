@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import {Navbar, Container, Button, Nav} from 'react-bootstrap'
-import { NavLink, useNavigate } from 'react-router-dom';
+import {Navbar, Container, Nav} from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom';
 import { Context } from '..';
-import { ADMIN_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, TO_DO_ROUTE, TO_BUY_ROUTE, DONE_ROUTE } from '../utils/consts';
+import { ADMIN_ROUTE, LOGIN_ROUTE, TO_DO_ROUTE, TO_BUY_ROUTE, DONE_ROUTE } from '../utils/consts';
 import {observer} from 'mobx-react-lite'
 
 const NavBar = observer ( () => {
@@ -19,34 +19,22 @@ const NavBar = observer ( () => {
                         : 'MyNotes'
                     }
                 </Navbar.Brand>
-                <Navbar.Toggle aria-controls="navbarScroll" />
+                {user.isAuth ? 
+                    <Navbar.Toggle aria-controls="navbarScroll" />
+                    : <></>
+                }
                 <Navbar.Collapse id="navbarScroll">
-                {/* <NavLink 
-                    style={{color: 'white'}}
-                    to={MAIN_ROUTE}
-                >
-                    {user.isAuth ? 
-                        <span>{user.user.username}</span>
-                        : 'MyNotes'
-                    }
-                </NavLink> */}
-                {/* <Button variant={'outline-light'}
-                    onClick={() => console.log(user.isAuth)}
-                >
-                    auth
-                </Button>
-                <Button variant={'outline-light'}
-                    onClick={() => console.log(localStorage)}
-                >
-                    localstorage
-                </Button> */}
                     {user.isAuth ?
-                        <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }}
+                        <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '200px' }}
                         navbarScroll
                         >
-                            <Nav.Link onClick={() => navigate(TO_DO_ROUTE)}>toDo</Nav.Link>
-                            <Nav.Link onClick={() => navigate(TO_BUY_ROUTE)}>toBuy</Nav.Link>
-                            <Nav.Link onClick={() => navigate(DONE_ROUTE)}>done</Nav.Link>
+                            <Nav.Link onClick={() => navigate(TO_DO_ROUTE)}>сделать</Nav.Link>
+                            <Nav.Link onClick={() => navigate(TO_BUY_ROUTE)}>купить</Nav.Link>
+                            <Nav.Link onClick={() => navigate(DONE_ROUTE)}>завершено</Nav.Link>
+                            {user.user.role === 'ADMIN' 
+                                ? <Nav.Link onClick={() => navigate(ADMIN_ROUTE)}>admin</Nav.Link>
+                                : <></>
+                            }
                         </Nav>
                         : <Nav></Nav>
                     }
@@ -58,28 +46,10 @@ const NavBar = observer ( () => {
                                     localStorage.removeItem('token')
                                 }}
                             >
-                                Выйти
+                                <strong style={{color: "white"}}>Выйти</strong>
                             </Nav.Link>
-                                    {/* <Button variant={'outline-light'}
-                                        className='ms-2'
-                                        onClick={() => {
-                                            user.setIsAuth(false)
-                                            navigate(LOGIN_ROUTE)
-                                            localStorage.removeItem('token')
-                                        }}
-                                    >
-                                        Выйти
-                                    </Button> */}
                         </Nav>
-                        : <Nav>
-                                    {/* <Button variant={'outline-light'}
-                                        onClick={() => {
-                                            navigate(LOGIN_ROUTE)
-                                        }}
-                                    >
-                                        Войти
-                                    </Button> */}
-                        </Nav>
+                        : <Nav></Nav>
                     }
                 </Navbar.Collapse>
             </Container>
